@@ -1,19 +1,20 @@
 import React, {CSSProperties, useContext} from "react";
 import styles from "./record-view.module.scss";
-import {Card, Icon, Popover, Tooltip} from "antd";
+import {Icon, Popover, Tooltip} from "antd";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {FileOutlined} from "@ant-design/icons";
 import {faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
+import ReactHtmlParser from "react-html-parser";
+import {Link} from "react-router-dom";
+import {getRecord} from "../../api/record";
+import sourceFormatOptions from "../../config/formats.config";
 import {AuthoritiesContext} from "../../util/authorities";
 import {formatCardUri} from "../../util/conversionFunctions";
-import sourceFormatOptions from "../../config/formats.config";
-import ReactHtmlParser from "react-html-parser";
-import {FileOutlined} from "@ant-design/icons";
 import {CardViewDateConverter} from "../../util/date-conversion";
-import {Link} from "react-router-dom";
 import {SearchContext} from "../../util/search-context";
-import {getRecord} from "../../api/record";
+import HCCard from "../common/hc-card/hc-card";
 
 const RecordCardView = (props) => {
   const authorityService = useContext(AuthoritiesContext);  // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -176,9 +177,8 @@ const RecordCardView = (props) => {
         {props.data && props.data.length > 0 ? props.data.map((elem, index) => (
           <Col xs={"auto"} key={index}>
             <div >
-              <Card
+              <HCCard
                 className={styles.cardStyle}
-                size="small"
               >
                 <div className={styles.cardMetadataContainer}>
                   <span className={styles.uriContainer} data-testid={elem.uri + "-URI"}>URI: <span className={styles.uri}>
@@ -215,12 +215,12 @@ const RecordCardView = (props) => {
                 <div className={styles.snippetContainer} data-testid={elem.uri + "-snippet"} >
                   {displaySnippet(elem)}
                 </div>
-              </Card>
-              <span className={styles.downloadIcon}>
-                <Tooltip title={displayFileSize(elem)} placement="bottom" >
-                  <span><Icon type="download" onClick={() => download(elem.uri)} data-testid={elem.uri + "-download-icon"} /></span>
-                </Tooltip>
-              </span>
+                <span className={styles.downloadIcon}>
+                  <Tooltip title={displayFileSize(elem)} placement="bottom" >
+                    <span><Icon type="download" onClick={() => download(elem.uri)} data-testid={elem.uri + "-download-icon"} /></span>
+                  </Tooltip>
+                </span>
+              </HCCard>
             </div>
           </Col>)) : <span></span>}
       </Row>

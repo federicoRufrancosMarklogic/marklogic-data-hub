@@ -1,21 +1,21 @@
 import React, {useState, CSSProperties, useEffect, useContext, createRef} from "react";
-import {Collapse, Icon, Card, Modal, Menu, Dropdown, Checkbox, Button, Tooltip} from "antd";
+import {Button, Collapse, Icon, Modal, Menu, Dropdown, Checkbox, Tooltip} from "antd";
 import {DownOutlined} from "@ant-design/icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowAltCircleLeft, faArrowAltCircleRight, faTrashAlt} from "@fortawesome/free-regular-svg-icons";
 import {faCog} from "@fortawesome/free-solid-svg-icons";
-import {faTrashAlt, faArrowAltCircleRight, faArrowAltCircleLeft} from "@fortawesome/free-regular-svg-icons";
-import NewFlowDialog from "./new-flow-dialog/new-flow-dialog";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import {useDropzone} from "react-dropzone";
+import {Link, useLocation} from "react-router-dom";
 import sourceFormatOptions from "../../config/formats.config";
 import {RunToolTips, SecurityTooltips} from "../../config/tooltips.config";
-import "./flows.scss";
-import styles from "./flows.module.scss";
 import Spinner from "react-bootstrap/Spinner";
-import {useDropzone} from "react-dropzone";
 import {AuthoritiesContext} from "../../util/authorities";
-import {Link, useLocation} from "react-router-dom";
-import axios from "axios";
 import {getViewSettings, setViewSettings, UserContext} from "../../util/user-context";
-// import Button from 'react-bootstrap/Button';
+import styles from "./flows.module.scss";
+import "./flows.scss";
+import NewFlowDialog from "./new-flow-dialog/new-flow-dialog";
+import HCCard from "../common/hc-card/hc-card";
 
 
 enum ReorderFlowOrderDirection {
@@ -865,10 +865,9 @@ const Flows: React.FC<Props> = (props) => {
         let stepDefinitionTypeTitle = StepDefinitionTypeTitles[stepDefinitionType];
         return (
           <div key={viewStepId} id="flowSettings">
-            <Card
+            <HCCard
               className={styles.cardStyle}
               title={StepDefToTitle(step.stepDefinitionType)}
-              size="small"
               actions={[
                 <div className={styles.reorder}>
                   {index !== 0 && props.canWriteFlow &&
@@ -907,7 +906,7 @@ const Flows: React.FC<Props> = (props) => {
                   </div>
                 </div>
               ]}
-              extra={
+              titleExtra={
                 <div className={styles.actions}>
                   {props.hasOperatorRole ?
                     step.stepDefinitionType.toLowerCase() === "ingestion" ?
@@ -963,6 +962,7 @@ const Flows: React.FC<Props> = (props) => {
                   }
                 </div>
               }
+              footerClassName={styles.cardFooter}
             >
               <div aria-label={viewStepId + "-content"} className={styles.cardContent}
                 onMouseOver={(e) => handleMouseOver(e, viewStepId)}
@@ -996,7 +996,7 @@ const Flows: React.FC<Props> = (props) => {
                 <div><Spinner animation="border" data-testid="spinner" variant="primary" /></div>
                 <div className={styles.runningLabel}>Running...</div>
               </div>
-            </Card>
+            </HCCard>
           </div>
         );
       });
