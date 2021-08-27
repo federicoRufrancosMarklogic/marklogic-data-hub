@@ -1,5 +1,5 @@
 import React, {useState, useContext} from "react";
-import {Card, Select, Input, Divider, Button, Radio, Tooltip} from "antd";
+import {Card, Select, Input, Button, Radio, Tooltip} from "antd";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import styles from "./zero-state-explorer.module.scss";
@@ -9,6 +9,7 @@ import {QueryOptions} from "../../types/query-types";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStream, faTable, faThLarge} from "@fortawesome/free-solid-svg-icons";
 import tiles from "../../config/tiles.config";
+import Divider from "../common/divider/divider";
 
 const ZeroStateExplorer = (props) => {
   const {

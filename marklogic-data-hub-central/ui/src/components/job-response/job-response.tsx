@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
-import {Descriptions, Divider, Modal, Icon, Collapse, Button} from "antd";
+import {Descriptions, Modal, Icon, Collapse, Button} from "antd";
 import {dateConverter, renderDuration, durationFromDateTime} from "../../util/date-conversion";
 import styles from "./job-response.module.scss";
 import axios from "axios";
@@ -13,6 +13,7 @@ import Spinner from "react-bootstrap/Spinner";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSync} from "@fortawesome/free-solid-svg-icons";
 import "./job-response.scss";
+import Divider from "../common/divider/divider";
 
 const {Panel} = Collapse;
 

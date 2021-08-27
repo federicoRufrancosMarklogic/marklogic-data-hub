@@ -1,7 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Select, Input, Divider} from "antd";
+import {Select, Input} from "antd";
 import styles from "./search-bar.module.scss";
 import {SearchContext} from "../../util/search-context";
+import Divider from "../common/divider/divider";
 
 interface Props {
   entities: any;

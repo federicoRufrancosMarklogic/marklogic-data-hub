@@ -1,9 +1,9 @@
 import React, {useContext} from "react";
 import styles from "./sidebar-footer.module.scss";
-import {Divider, Button} from "antd";
+import {Button} from "antd";
 import {SearchContext} from "../../util/search-context";
 import {MonitorContext} from "../../util/monitor-context";
-
+import Divider from "../common/divider/divider";
 
 const SidebarFooter: React.FC = () => {
   const {

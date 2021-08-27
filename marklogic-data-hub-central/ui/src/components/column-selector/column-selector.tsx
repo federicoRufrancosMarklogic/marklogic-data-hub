@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useContext} from "react";
-import {Popover, Tree, Input, Divider, Button, Tooltip} from "antd";
+import {Popover, Tree, Input, Button, Tooltip} from "antd";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faColumns} from "@fortawesome/free-solid-svg-icons";
 import styles from "./column-selector.module.scss";
 import {treeConverter, getCheckedKeys, getSelectedTableProperties, setTreeVisibility, getParentKey} from "../../util/data-conversion";
 import {SearchContext} from "../../util/search-context";
-
+import Divider from "../common/divider/divider";
 
 interface Props {
   entityPropertyDefinitions: any[];
