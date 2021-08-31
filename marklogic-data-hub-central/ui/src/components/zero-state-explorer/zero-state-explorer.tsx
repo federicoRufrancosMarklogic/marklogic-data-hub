@@ -9,7 +9,7 @@ import {QueryOptions} from "../../types/query-types";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStream, faTable, faThLarge} from "@fortawesome/free-solid-svg-icons";
 import tiles from "../../config/tiles.config";
-import Divider from "../common/divider/divider";
+import HCDivider from "../common/divider/hc-divider";
 
 const ZeroStateExplorer = (props) => {
   const {
@@ -20,7 +20,7 @@ const ZeroStateExplorer = (props) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [view, setView] = useState(props.tableView ? "table" : "snippet");
   const {Option} = Select;
-  const dividerOption = <Divider className={styles.dividerOption} />;
+  const dividerOption = <HCDivider className={styles.dividerOption} />;
   const dropdownOptions = ["All Data", dividerOption, "All Entities", dividerOption, ...props.entities];
   const [zeroStatePageDatabase, setZeroStatePageDatabase] = useState("final");
   const [cardView, setCardView] = useState(false);

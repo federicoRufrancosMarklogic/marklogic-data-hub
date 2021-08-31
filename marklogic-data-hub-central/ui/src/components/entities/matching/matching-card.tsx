@@ -15,7 +15,7 @@ import {ConfirmationType} from "../../../types/common-types";
 import {MatchingStep, StepType} from "../../../types/curation-types";
 import Steps from "../../steps/steps";
 import {getViewSettings, setViewSettings} from "../../../util/user-context";
-import Divider from "../../common/divider/divider";
+import HCDivider from "../../common/divider/hc-divider";
 
 interface Props {
   matchingStepsArray: MatchingStep[];
@@ -264,8 +264,9 @@ const MatchingCard: React.FC<Props> = (props) => {
             <p className={styles.stepLink} data-testid={`${flow.name}-run-step`} key={i} onClick={() => handleAddRun(flow.name)}>{flow.name}</p>
           ))}</div>
         </Col>
+
         <Col xs={"auto"}>
-          <Divider type="vertical" className={styles.verticalDiv}></Divider>
+          <HCDivider type="vertical" className={styles.verticalDiv}></HCDivider>
         </Col>
         <Col>
           <Link data-testid="link" id="tiles-add-run-new-flow" to={

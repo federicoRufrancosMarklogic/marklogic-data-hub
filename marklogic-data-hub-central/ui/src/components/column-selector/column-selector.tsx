@@ -5,7 +5,7 @@ import {faColumns} from "@fortawesome/free-solid-svg-icons";
 import styles from "./column-selector.module.scss";
 import {treeConverter, getCheckedKeys, getSelectedTableProperties, setTreeVisibility, getParentKey} from "../../util/data-conversion";
 import {SearchContext} from "../../util/search-context";
-import Divider from "../common/divider/divider";
+import HCDivider from "../common/divider/hc-divider";
 
 interface Props {
   entityPropertyDefinitions: any[];
@@ -160,7 +160,7 @@ const ColumnSelector: React.FC<Props> = (props) => {
         </Tree>
       </div>
       <footer>
-        <Divider className={styles.divider} />
+        <HCDivider className={styles.divider} />
         <div className={styles.footer}>
           <Button size="small" onClick={onClose} >Cancel</Button>
           <Button size="small" onClick={onApply} disabled={!checkedKeys.length} >Apply</Button>

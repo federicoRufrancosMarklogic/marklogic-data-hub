@@ -13,7 +13,7 @@ import Spinner from "react-bootstrap/Spinner";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSync} from "@fortawesome/free-solid-svg-icons";
 import "./job-response.scss";
-import Divider from "../common/divider/divider";
+import HCDivider from "../common/divider/hc-divider";
 
 const {Panel} = Collapse;
 
@@ -125,7 +125,7 @@ const JobResponse: React.FC<Props> = (props) => {
       <strong className={styles.headerItem}>Documents Written</strong>
       <strong className={styles.headerItem}>Action</strong>
     </div>
-    <Divider className={styles.divider}/>
+    <HCDivider className={styles.divider}/>
   </div>;
 
 
@@ -144,7 +144,7 @@ const JobResponse: React.FC<Props> = (props) => {
                   <span className={styles.exploreActionText}>Explore Data</span>
                 </Button>
               </div>
-              <Divider className={styles.divider}/>
+              <HCDivider className={styles.divider}/>
             </div>;
           } else {
             const errors = getErrors(stepResponse);

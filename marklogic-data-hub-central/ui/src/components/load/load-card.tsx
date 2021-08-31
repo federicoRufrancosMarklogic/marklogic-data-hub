@@ -12,7 +12,7 @@ import {convertDateFromISO} from "../../util/conversionFunctions";
 import Steps from "../steps/steps";
 import {AdvLoadTooltips, SecurityTooltips} from "../../config/tooltips.config";
 import {Link} from "react-router-dom";
-import Divider from "../common/divider/divider";
+import HCDivider from "../common/divider/hc-divider";
 
 const {Option} = Select;
 
@@ -279,7 +279,7 @@ const LoadCard: React.FC<Props> = (props) => {
           ))}</div>
         </Col>
         <Col xs={"auto"}>
-          <Divider type="vertical" className={styles.verticalDiv}></Divider>
+          <HCDivider type="vertical" className={styles.verticalDiv}></HCDivider>
         </Col>
         <Col>
           <Link data-testid="link" id="tiles-add-run-new-flow" to={

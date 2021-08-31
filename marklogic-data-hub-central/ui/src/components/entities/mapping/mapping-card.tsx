@@ -13,7 +13,7 @@ import Steps from "../../steps/steps";
 import {CurationContext} from "../../../util/curation-context";
 import {StepType} from "../../../types/curation-types";
 import {getViewSettings, setViewSettings} from "../../../util/user-context";
-import Divider from "../../common/divider/divider";
+import HCDivider from "../../common/divider/hc-divider";
 
 const {Option} = Select;
 
@@ -301,7 +301,7 @@ const MappingCard: React.FC<Props> = (props) => {
           ))}</div>
         </Col>
         <Col xs={"auto"}>
-          <Divider type="vertical" className={styles.verticalDiv}></Divider>
+          <HCDivider type="vertical" className={styles.verticalDiv}></HCDivider>
         </Col>
         <Col>
           <Link data-testid="link" id="tiles-add-run-new-flow" to={

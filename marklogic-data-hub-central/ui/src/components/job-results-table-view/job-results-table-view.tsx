@@ -8,7 +8,7 @@ import {faColumns} from "@fortawesome/free-solid-svg-icons";
 import "./job-results-table-view.scss";
 import {MonitorContext} from "../../util/monitor-context";
 import JobResponse from "../job-response/job-response";
-import Divider from "../common/divider/divider";
+import HCDivider from "../common/divider/hc-divider";
 
 const JobResultsTableView = (props) => {
   const [popoverVisibility, setPopoverVisibility] = useState<boolean>(false);
@@ -196,7 +196,7 @@ const JobResultsTableView = (props) => {
         </Menu>
       </div>
       <footer>
-        <Divider className={styles.divider} />
+        <HCDivider className={styles.divider} />
         <div className={styles.footer}>
           <div>
             <Button size="small" onClick={onCancel} >Cancel</Button>

@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {Select, Input} from "antd";
 import styles from "./search-bar.module.scss";
 import {SearchContext} from "../../util/search-context";
-import Divider from "../common/divider/divider";
+import HCDivider from "../common/divider/hc-divider";
 
 interface Props {
   entities: any;
@@ -16,7 +16,7 @@ const SearchBar: React.FC<Props> = props => {
   const {searchOptions, setQuery, setNextEntity} = useContext(SearchContext);
   const [searchString, setSearchString] = useState(searchOptions.query);
   const [dropDownValue, setDropdownValue] = useState("All Entities");
-  const dividerOption = <Divider className={styles.dividerOption}/>;
+  const dividerOption = <HCDivider className={styles.dividerOption}/>;
   const dropdownOptions = ["All Data", dividerOption, "All Entities", dividerOption, ...props.entities];
 
   const options = dropdownOptions.map((entity, index) => {

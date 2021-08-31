@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./divider.module.scss";
+import styles from "./hc-divider.module.scss";
 
 interface Props {
   type?: "horizontal" | "vertical";
@@ -8,7 +8,7 @@ interface Props {
   style?: React.CSSProperties;
 }
 
-const Divider: React.FC<Props> = (props) => {
+const HCDivider: React.FC<Props> = (props) => {
   return (
     <div data-testid="divider-component">
       <hr className={[
@@ -21,4 +21,4 @@ const Divider: React.FC<Props> = (props) => {
   );
 };
 
-export default Divider;
+export default HCDivider;
