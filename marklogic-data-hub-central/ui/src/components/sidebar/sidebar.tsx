@@ -15,6 +15,7 @@ import DateTimeFacet from "../date-time-facet/date-time-facet";
 import {getUserPreferences, updateUserPreferences} from "../../services/user-preferences";
 import {UserContext} from "../../util/user-context";
 import HCTooltip from "../common/hc-tooltip/hc-tooltip";
+import { ChevronDown, ChevronRight } from "react-bootstrap-icons";
 
 const {Panel} = Collapse;
 const {RangePicker} = DatePicker;
@@ -498,7 +499,7 @@ const Sidebar: React.FC<Props> = (props) => {
       <Collapse
         className={styles.sideBarFacets}
         activeKey={activeKey}
-        expandIcon={panelProps => <Icon className={styles.toggleIcon} type="down" rotate={panelProps.isActive ? 0 : -90} data-testid="toggle" />}
+        expandIcon={panelProps => panelProps.isActive ? <ChevronDown className={styles.toggleIcon} data-testid="toggle"/> : <ChevronRight className={styles.toggleIcon} data-testid="toggle"/>}
         expandIconPosition="right"
         bordered={false}
         onChange={setActive}

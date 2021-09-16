@@ -9,6 +9,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExternalLinkAlt, faCode} from "@fortawesome/free-solid-svg-icons";
 import {SearchContext} from "../../util/search-context";
 import HCTooltip from "../common/hc-tooltip/hc-tooltip";
+import { ChevronDown, ChevronRight } from "react-bootstrap-icons";
 
 
 interface Props extends RouteComponentProps {
@@ -77,7 +78,7 @@ const SearchResult: React.FC<Props> = (props) => {
   return (
     <div style={{width: "100%"}}>
       <div className={styles.title} onClick={() => showTableEntityProperties()}>
-        <Icon className={styles.expandableIcon} data-cy="expandable-icon" data-testid="expandable-icon" type="right" rotate={show ? 90 : undefined} />
+        {show ? <ChevronDown className={styles.expandableIcon} data-cy="expandable-icon" data-testid="expandable-icon"/> : <ChevronRight className={styles.expandableIcon} data-cy="expandable-icon" data-testid="expandable-icon" />}
         <div className={styles.redirectIcons}>
           <Link to={{pathname: "/tiles/explore/detail", state: {selectedValue: "instance",
             entity: searchOptions.entityTypeIds,
