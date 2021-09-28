@@ -18,7 +18,7 @@ import {ModelingTooltips, MappingDetailsTooltips} from "../../../../config/toolt
 import StepsConfig from "../../../../config/steps.config";
 import HCTooltip from "../../../common/hc-tooltip/hc-tooltip";
 import HCButton from "../../../common/hc-button/hc-button";
-import {QuestionCircleFill, XLg, ChevronDown, ChevronRight} from "react-bootstrap-icons";
+import {QuestionCircleFill, XLg, ChevronDown, ChevronRight, Search} from "react-bootstrap-icons";
 
 interface Props {
   setScrollRef: any;
@@ -428,7 +428,7 @@ const EntityMapTable: React.FC<Props> = (props) => {
           size="sm"
           className={styles.searchSubmitButton}
         >
-          <Icon type="search" theme="outlined" /> Search
+          <Search className={styles.searchIcon}/> Search
         </HCButton>
       </div>
     ),
