@@ -1,19 +1,19 @@
 export const COMMON_PROPERTY_TYPES = [
   {
-    label: 'string',
-    value: 'string'
+    value: 'string',
+    label: 'string'
   },
   {
-    label: 'integer',
-    value: 'integer'
+    value: 'integer',
+    label: 'integer'
   },
   {
-    label: 'dateTime',
-    value: 'dateTime'
+    value: 'dateTime',
+    label: 'dateTime'
   },
   {
-    label: 'boolean',
-    value: 'boolean'
+    value: 'boolean',
+    label: 'boolean'
   }
 ];
 
@@ -22,12 +22,12 @@ export const MORE_STRING_TYPES = {
   value: 'moreStringTypes',
   children: [
     {
-      label: 'anyURI',
-      value: 'anyURI'
+      value: 'anyURI',
+      label: 'anyURI'
     },
     {
-      label: 'iri',
-      value: 'iri'
+      value: 'iri',
+      label: 'iri'
     }
   ]
 };
@@ -37,64 +37,64 @@ export const MORE_NUMBER_TYPES = {
   value: 'moreNumberTypes',
   children: [
     {
-      label: 'byte',
-      value: 'byte'
+      value: 'byte',
+      label: 'byte'
     },
     {
-      label: 'decimal',
-      value: 'decimal'
+      value: 'decimal',
+      label: 'decimal'
     },
     {
-      label: 'double',
-      value: 'double'
+      value: 'double',
+      label: 'double'
     },
     {
-      label: 'float',
-      value: 'float'
+      value: 'float',
+      label: 'float'
     },
     {
-      label: 'int',
-      value: 'int'
+      value: 'int',
+      label: 'int'
     },
     {
-      label: 'long',
-      value: 'long'
+      value: 'long',
+      label: 'long'
     },
     {
-      label: 'negativeInteger',
-      value: 'negativeInteger'
+      value: 'negativeInteger',
+      label: 'negativeInteger'
     },
     {
-      label: 'nonNegativeInteger',
-      value: 'nonNegativeInteger'
+      value: 'nonNegativeInteger',
+      label: 'nonNegativeInteger'
     },
     {
-      label: 'nonPositiveInteger',
-      value: 'nonPositiveInteger'
+      value: 'nonPositiveInteger',
+      label: 'nonPositiveInteger'
     },
     {
-      label: 'positiveInteger',
-      value: 'positiveInteger'
+      value: 'positiveInteger',
+      label: 'positiveInteger'
     },
     {
-      label: 'short',
-      value: 'short'
+      value: 'short',
+      label: 'short'
     },
     {
-      label: 'unsignedByte',
-      value: 'unsignedByte'
+      value: 'unsignedByte',
+      label: 'unsignedByte'
     },
     {
-      label: 'unsignedInt',
-      value: 'unsignedInt'
+      value: 'unsignedInt',
+      label: 'unsignedInt'
     },
     {
-      label: 'unsignedLong',
-      value: 'unsignedLong'
+      value: 'unsignedLong',
+      label: 'unsignedLong'
     },
     {
-      label: 'unsignedShort',
-      value: 'unsignedShort'
+      value: 'unsignedShort',
+      label: 'unsignedShort'
     }
   ]
 };
@@ -104,36 +104,36 @@ export const MORE_DATE_TYPES = {
   value: 'moreDateTypes',
   children: [
     {
-      label: 'date',
-      value: 'date'
+      value: 'date',
+      label: 'date'
     },
     {
-      label: 'dayTimeDuration',
-      value: 'dayTimeDuration'
+      value: 'dayTimeDuration',
+      label: 'dayTimeDuration'
     },
     {
-      label: 'gDay',
-      value: 'gDay'
+      value: 'gDay',
+      label: 'gDay'
     },
     {
-      label: 'gMonth',
-      value: 'gMonth'
+      value: 'gMonth',
+      label: 'gMonth'
     },
     {
-      label: 'gYear',
-      value: 'gYear'
+      value: 'gYear',
+      label: 'gYear'
     },
     {
-      label: 'gYearMonth',
-      value: 'gYearMonth'
+      value: 'gYearMonth',
+      label: 'gYearMonth'
     },
     {
-      label: 'time',
-      value: 'time'
+      value: 'time',
+      label: 'time'
     },
     {
-      label: 'yearMonthDuration',
-      value: 'yearMonthDuration'
+      value: 'yearMonthDuration',
+      label: 'yearMonthDuration'
     }
   ]
 };

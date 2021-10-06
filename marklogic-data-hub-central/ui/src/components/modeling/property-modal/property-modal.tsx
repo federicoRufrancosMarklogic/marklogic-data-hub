@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
-import {Modal, Form, Input, Radio, Cascader, Select} from "antd";
+import {Modal, Form, Input, Radio, Select} from "antd";
 import FormCheck from "react-bootstrap/FormCheck";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -12,6 +12,7 @@ import {ModelingContext} from "../../../util/modeling-context";
 import {entityReferences, primaryEntityTypes} from "../../../api/modeling";
 import {ModelingTooltips} from "../../../config/tooltips.config";
 import {getSystemInfo} from "../../../api/environment";
+import Cascader from "@wyesoftware/cascader";
 
 import {
   StructuredTypeOptions,
@@ -26,7 +27,6 @@ import {
   MORE_STRING_TYPES,
   MORE_NUMBER_TYPES,
   MORE_DATE_TYPES,
-  DROPDOWN_PLACEHOLDER
 } from "../../../config/modeling.config";
 import HCAlert from "../../common/hc-alert/hc-alert";
 import HCTooltip from "../../common/hc-tooltip/hc-tooltip";
@@ -97,9 +97,8 @@ const DEFAULT_STRUCTURED_DROPDOWN_OPTIONS = {
 
 const DEFAULT_DROPDOWN_OPTIONS = [
   ...COMMON_PROPERTY_TYPES,
-  DROPDOWN_PLACEHOLDER("1"),
   DEFAULT_STRUCTURED_DROPDOWN_OPTIONS,
-  DROPDOWN_PLACEHOLDER("2"),
+
   MORE_STRING_TYPES,
   MORE_NUMBER_TYPES,
   MORE_DATE_TYPES
@@ -144,6 +143,7 @@ const PropertyModal: React.FC<Props> = (props) => {
   const [showSteps, toggleSteps] = useState(false);
 
   const [typeDisplayValue, setTypeDisplayValue] = useState<string[]>([]);
+  const [joinValues, setJoinValues] = useState<string>();
   const [typeErrorMessage, setTypeErrorMessage] = useState("");
 
   const [showJoinProperty, toggleShowJoinProperty] = useState(false);
@@ -274,7 +274,9 @@ const PropertyModal: React.FC<Props> = (props) => {
     }
   };
 
-  const onPropertyTypeChange = (value, selectedOptions) => {
+  const onPropertyTypeChange = (value) => {
+    setTypeDisplayValue(value);
+    setJoinValues(value);
     if (value.length) {
       let newSelectedPropertyOptions = {...selectedPropertyOptions};
       let typeValue = "";
@@ -461,10 +463,8 @@ const PropertyModal: React.FC<Props> = (props) => {
 
       setDropdownOptions([
         ...COMMON_PROPERTY_TYPES,
-        DROPDOWN_PLACEHOLDER("1"),
         structuredDropdown,
         relatedEntityDropdown,
-        DROPDOWN_PLACEHOLDER("2"),
         MORE_STRING_TYPES,
         MORE_NUMBER_TYPES,
         MORE_DATE_TYPES
@@ -474,9 +474,7 @@ const PropertyModal: React.FC<Props> = (props) => {
     } else if (modelingOptions.entityTypeNamesArray.length <= 1 && structuredDefinitions.length > 0) {
       setDropdownOptions([
         ...COMMON_PROPERTY_TYPES,
-        DROPDOWN_PLACEHOLDER("1"),
         structuredDropdown,
-        DROPDOWN_PLACEHOLDER("2"),
         MORE_STRING_TYPES,
         MORE_NUMBER_TYPES,
         MORE_DATE_TYPES
@@ -515,10 +513,8 @@ const PropertyModal: React.FC<Props> = (props) => {
 
       setDropdownOptions([
         ...COMMON_PROPERTY_TYPES,
-        DROPDOWN_PLACEHOLDER("1"),
         DEFAULT_STRUCTURED_DROPDOWN_OPTIONS,
         relatedEntityDropdown,
-        DROPDOWN_PLACEHOLDER("2"),
         MORE_STRING_TYPES,
         MORE_NUMBER_TYPES,
         MORE_DATE_TYPES
@@ -529,9 +525,7 @@ const PropertyModal: React.FC<Props> = (props) => {
 
       setDropdownOptions([
         ...COMMON_PROPERTY_TYPES,
-        DROPDOWN_PLACEHOLDER("1"),
         structuredDropdown,
-        DROPDOWN_PLACEHOLDER("2"),
         MORE_STRING_TYPES,
         MORE_NUMBER_TYPES,
         MORE_DATE_TYPES
@@ -553,10 +547,8 @@ const PropertyModal: React.FC<Props> = (props) => {
 
       setDropdownOptions([
         ...COMMON_PROPERTY_TYPES,
-        DROPDOWN_PLACEHOLDER("1"),
         structuredDropdown,
         relatedEntityDropdown,
-        DROPDOWN_PLACEHOLDER("2"),
         MORE_STRING_TYPES,
         MORE_NUMBER_TYPES,
         MORE_DATE_TYPES
@@ -568,10 +560,8 @@ const PropertyModal: React.FC<Props> = (props) => {
 
       setDropdownOptions([
         ...COMMON_PROPERTY_TYPES,
-        DROPDOWN_PLACEHOLDER("1"),
         structuredDropdown,
         relatedEntityDropdown,
-        DROPDOWN_PLACEHOLDER("2"),
         MORE_STRING_TYPES,
         MORE_NUMBER_TYPES,
         MORE_DATE_TYPES
@@ -583,7 +573,7 @@ const PropertyModal: React.FC<Props> = (props) => {
   const createRelatedEntityDropdown = () => {
     let entityTypes = modelingOptions.entityTypeNamesArray
       .sort((a, b) => a.name.localeCompare(b.name))
-      .map(entity => { return {label: entity.name, value: entity.name}; });
+      .map(entity => { return {value: entity.name, label: entity.name}; });
 
     return {
       label: "Related Entity",
@@ -885,9 +875,9 @@ const PropertyModal: React.FC<Props> = (props) => {
             aria-label="type-dropdown"
             placeholder="Select the property type"
             options={dropdownOptions}
-            displayRender={ label => { return label[label.length-1]; } }
             onChange={onPropertyTypeChange}
-            value={typeDisplayValue}
+            value={joinValues}
+            className={styles.cascader}
           />
         </Form.Item>
 
