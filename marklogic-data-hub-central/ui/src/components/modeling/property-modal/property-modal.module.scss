@@ -113,17 +113,69 @@
 .toggleSteps {
   cursor: pointer;
   color: #5B69AF;
- }
+}
 
- .stepList {
-   list-style: none;
-   li {
-     margin-left: 15px;
-   }
+.stepList {
+  list-style: none;
+  li {
+    margin-left: 15px;
+  }
 
-   li::before {
-     content: "- ";
-     margin-left: -15px;
-   }
- }
+  li::before {
+    content: "- ";
+    margin-left: -15px;
+  }
+}
 
+div > ul > li[class*=items-center] {
+  padding: 5px 12px !important;  
+}
+
+div > ul:nth-child(2) > li[class*=items-center]:nth-child(4),
+div > ul:nth-child(2) > li[class*=items-center]:nth-child(6) {
+  padding-bottom: 5px !important;
+  margin-bottom: 20px;
+}
+
+div > ul:nth-child(2) > li[class*=items-center]:nth-child(5),
+div > ul:nth-child(2) > li[class*=items-center]:nth-child(7) {
+  position: relative;
+}
+
+div > ul:nth-child(2) > li[class*=items-center]:nth-child(5):before,
+div > ul:nth-child(2) > li[class*=items-center]:nth-child(7):before {
+  content: '';
+  top: -12px;
+  position: absolute;
+  left: 0;
+  background-color: #ddd;
+  width: 100%;
+  height: 1.5px;
+}
+
+/* 
+
+div > ul > li[class*=items-center]:nth-child(-n+4){
+  background-color: #f9f9f9;
+}
+
+div > ul > li[class*=items-center]:nth-child(n+5):nth-child(-n+6){
+  background-color: #eeeeee;
+}
+
+div > ul > li[class*=items-center]:nth-child(n+7):nth-child(-n+9){
+  background-color: #ddd;
+} */
+
+div > ul {
+  border-radius: 4px;
+  box-shadow: #00000026 0px 8px 14px !important;
+  color: #333333;
+  li:hover {
+    background-color: #E9F7FE !important;
+  }
+}
+
+.cascader input {
+  margin: -10px 0px !important;  
+}
