@@ -79,7 +79,7 @@ const Browse: React.FC<Props> = ({location}) => {
   const [entitiesData, setEntitiesData] = useState<any[]>([]);
   const [showNoDefinitionAlertMessage, setShowNoDefinitionAlertMessage] = useState(false);
 
-  const [graphView, setGraphView] = useState(false);
+  const [graphView, setGraphView] = useState(state && state.graphView ? true : false);
 
   const getEntityModel = async () => {
     try {
@@ -124,7 +124,11 @@ const Browse: React.FC<Props> = ({location}) => {
         setShowNoDefinitionAlertMessage(false);
       }
       if (componentIsMounted.current && response.data) {
-        setData(response.data.results);
+        if (response.data.entityPropertyDefinitions && graphView) {
+          setData(response.data.results);
+        } else if (!graphView) {
+          setData(response.data.results);
+        }
         if (response.data.hasOwnProperty("entityPropertyDefinitions")) {
           setEntityPropertyDefinitions(response.data.entityPropertyDefinitions);
         }

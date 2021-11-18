@@ -236,7 +236,7 @@ const ResultsTabularView = (props) => {
                   entityInstance: item.entityInstance,
                   targetDatabase: searchOptions.database
                 }
-              }} id={"instance"}
+              }} id={"instanSSSSSSce"}
               data-cy="instance">
                 <HCTooltip text="Show the processed data" id="processed-data-tooltip" placement="top-end">
                   <i><FontAwesomeIcon className={styles.iconHover} icon={faExternalLinkAlt} size="sm" data-testid={`${primaryKeyValue}-detailOnSeparatePage`} /></i>
