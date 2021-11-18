@@ -1,4 +1,4 @@
-import React, {CSSProperties, useState} from "react";
+import React, {CSSProperties, useContext, useState} from "react";
 import styles from "./graph-view-explore.module.scss";
 import FormCheck from "react-bootstrap/FormCheck";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -7,6 +7,9 @@ import SplitPane from "react-split-pane";
 import {ModelingTooltips} from "../../config/tooltips.config";
 import GraphVisExplore from "./graph-vis-explore/graph-vis-explore";
 import {HCTooltip} from "@components/common";
+import GraphExploreSidePanel from "./graph-explore-side-panel/graph-explore-side-panel";
+import {SearchContext} from "../../util/search-context";
+
 
 type Props = {
   entityTypesInstances: any;
@@ -16,7 +19,12 @@ type Props = {
 const GraphViewExplore: React.FC<Props> = (props) => {
 
   const [splitPaneResized, setSplitPaneResized] = useState(false);
-  const selectedEntityInstance = false; // To be moved to explorer context
+  //const selectedEntityInstance = false; // To be moved to explorer context
+
+  const {
+    searchOptions: {selectedNode},
+    setSelectedNode,
+  } = useContext(SearchContext);
 
   const headerButtons = <span className={styles.buttons}>
     <HCTooltip text={ModelingTooltips.exportGraph} id="export-graph-icon" placement="top">
@@ -74,8 +82,12 @@ const GraphViewExplore: React.FC<Props> = (props) => {
     setSplitPaneResized(true);
   };
 
+  const onCloseSidePanel = async () => {
+    setSelectedNode(undefined);
+  };
+
   return (
-    !selectedEntityInstance ? graphViewExploreMainPanel :
+    !selectedNode ? graphViewExploreMainPanel :
       <SplitPane
         style={splitStyle}
         paneStyle={splitPaneStyles.pane}
@@ -91,6 +103,7 @@ const GraphViewExplore: React.FC<Props> = (props) => {
         {graphViewExploreMainPanel}
         <div>
           {/* add code for side panel here */}
+          <GraphExploreSidePanel onCloseSidePanel={onCloseSidePanel} graphView={props.graphView}/>
         </div>
       </SplitPane>
   );

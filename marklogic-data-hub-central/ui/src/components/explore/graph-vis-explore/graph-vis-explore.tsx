@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext, useLayoutEffect} from "react";
 import Graph from "react-graph-vis";
-import "./graph-vis-explore.scss";
 import graphConfig from "../../../config/graph-vis.config";
 import {Dropdown, Menu} from "antd";
 import * as _ from "lodash";
@@ -21,9 +20,12 @@ const GraphVisExplore: React.FC<Props> = (props) => {
   const [contextMenuVisible, setContextMenuVisible] = useState(false);
   const [clickedNode, setClickedNode] = useState(undefined);
   const [hasStabilized, setHasStabilized] = useState(false);
+  //const [selectedNode, setSelectedNode] = useState(undefined);
+
   const {
     searchOptions,
-    setGraphViewOptions
+    setGraphViewOptions,
+    setSelectedNode,
   } = useContext(SearchContext);
 
   // Get network instance on init
@@ -275,7 +277,14 @@ const GraphVisExplore: React.FC<Props> = (props) => {
 
   const events = {
     select: (event) => {
-      // console.info("SELECT", event);
+      const {nodes} = event;
+      if (nodes.length > 0) {
+        const [node]= nodes;
+        const entity  = node.substr(0, node.indexOf("-"));
+        const id = node.substr(node.indexOf("-")+1);
+        const nodeObject = props.entityTypeInstances.find(node => node.entityName === entity && node.primaryKey.propertyValue.toString() === id);
+        setSelectedNode(nodeObject);
+      }
     },
     click: (event) => {
       //if click is on an edge
