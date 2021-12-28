@@ -65,8 +65,9 @@ const BaseEntitiesFacet: React.FC<Props> = (props) => {
   });
 
   const handleChange = (selection) => {
+    const allEntitiesSelected = selection.find(element => element.value === "All Entities" && element.isDisabled === false);
     const selectedItems = selection.map(element => element.value);
-    if (selectedItems.length === 0) {
+    if (selectedItems.length === 0 || allEntitiesSelected) {
       setEntities(["All Entities"]);
       setEntitiesList(ENTITIES);
       setCurrentBaseEntities([]);
@@ -108,7 +109,6 @@ const BaseEntitiesFacet: React.FC<Props> = (props) => {
       <Select
         id="entitiesSidebar-select-wrapper"
         inputId="entitiesSidebar-select"
-        placeholder="Please select target database"
         isMulti
         isClearable={false}
         value={entities?.map(d => ({value: d, label: d}))}
