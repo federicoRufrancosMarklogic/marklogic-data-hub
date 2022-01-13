@@ -1,11 +1,13 @@
 import {faCode, faExternalLinkAlt, faThList} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {getDetails} from "../../../api/record";
 import {Tab, Tabs} from "react-bootstrap";
 import {ChevronRight, XLg} from "react-bootstrap-icons";
 import {Link} from "react-router-dom";
 import {SearchContext} from "../../../util/search-context";
 import styles from "./graph-explore-side-panel.module.scss";
+import {xmlFormatter, jsonFormatter} from "../../../util/record-parser";
 
 type Props = {
     onCloseSidePanel:() => void;
@@ -24,9 +26,24 @@ const GraphExploreSidePanel: React.FC<Props> = (props) => {
     savedNode
   } = useContext(SearchContext);
   const  {database, entityTypeIds, selectedFacets, query, sortOrder} = searchOptions;
-  const {entityName, group, primaryKey, uri, sources, entityInstance, label} = savedNode;
+  const {entityName, group, primaryKey, docUri, sources, entityInstance, label} = savedNode;
   const [currentTab, setCurrentTab] = useState(DEFAULT_TAB);
+  const [details, setDetails] = useState<any>(null);
   const entityInstanceTitle = group ? group.split("/").pop() : entityName;
+  const [currentLabel, setCurrentLabel] = useState<string>("");
+  useEffect(() => {
+    if (docUri && label !== currentLabel) {
+      setCurrentLabel(label);
+      const getNodeData = async (docUri, database) => {
+        const result = await getDetails(docUri, database);
+        console.log('result', result);
+        const {data} = result;
+        setDetails(data);
+      };
+      getNodeData(docUri, database);
+     console.log('olaaa');
+    }
+  }, [details, label, currentLabel]);
 
   const handleTabChange = (key) => {
     setCurrentTab(key);
@@ -77,9 +94,17 @@ const GraphExploreSidePanel: React.FC<Props> = (props) => {
       ); */
       return <div>Instance tab</div>;
     } else {
-      return <div>Record tab</div>;
+      //return <div>Instance tab</div>;
+      //on instance tab set entityInstanceProperties to document
+      return  (<>
+        {details.recordType === "json"
+          ? <pre data-testid="json-container">{jsonFormatter(details)}</pre>
+          : <pre data-testid="xml-container">{xmlFormatter(details)}</pre>
+        }
+      </>);
     }
   };
+  console.log('details', details);
 
   const pathname = "/tiles/explore/detail"
   ;
@@ -101,7 +126,7 @@ const GraphExploreSidePanel: React.FC<Props> = (props) => {
     sortOrder,
     sources,
     primaryKey: primaryKeyValue,
-    uri,
+    docUri,
     entityInstance,
     targetDatabase: database,
     graphView,
@@ -121,7 +146,7 @@ const GraphExploreSidePanel: React.FC<Props> = (props) => {
         </span>
       </div>
       <div>
-        <span className={styles.selectedNodeUri} data-testid={"uriLabel"}>URI: {uri}</span>
+        <span className={styles.selectedNodeUri} data-testid={"uriLabel"}>URI: {docUri}</span>
       </div>
       <Tabs defaultActiveKey={DEFAULT_TAB} activeKey={currentTab} onSelect={handleTabChange} className={styles.tabsContainer}>
         <Tab
