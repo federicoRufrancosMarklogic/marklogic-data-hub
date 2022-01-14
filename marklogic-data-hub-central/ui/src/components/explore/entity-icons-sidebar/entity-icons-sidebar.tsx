@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import styles from "./entity-icons-sidebar.module.scss";
 import {ChevronDoubleRight} from "react-bootstrap-icons";
+import {SearchContext} from "../../../util/search-context";
 import {HCTooltip} from "@components/common";
 
 interface Props {
@@ -16,16 +17,24 @@ const EntityIconsSidebar: React.FC<Props> = (props) => {
   const {currentBaseEntities, onClose, currentRelatedEntities, updateSelectedEntity} = props;
   const currentRelatedEntitiesArray = currentRelatedEntities && currentRelatedEntities.size > 0 ? Array.from(currentRelatedEntities.values()) : [];
 
+  const {
+    setEntity,
+  } = useContext(SearchContext);
+
   const closeSpecificSidebar = (event) => {
     onClose(false);
   };
 
   const handleBaseEntityClicked = (index) => {
-    updateSelectedEntity(currentBaseEntities[index]);
+    const entity = currentBaseEntities[index];
+    updateSelectedEntity(entity);
+    setEntity(entity.name);
   };
 
   const handleRelatedEntityClicked = (index) => {
-    updateSelectedEntity(currentRelatedEntitiesArray[index]);
+    const entity = currentRelatedEntitiesArray[index];
+    updateSelectedEntity(entity);
+    setEntity(entity.name);
   };
 
   return (

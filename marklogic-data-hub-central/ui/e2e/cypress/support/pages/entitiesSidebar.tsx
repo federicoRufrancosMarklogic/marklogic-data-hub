@@ -33,12 +33,33 @@ class BaseEntitySidebar {
     cy.get(".drp-calendar.left > .calendar-table tr:last-child > td:last-child").click({force: true});
   }
 
+  getApplyFacetsButton() {
+    return cy.get("button[aria-label='apply-facets-button']");
+  }
+
+  getClearFacetsButton() {
+    return cy.get("button[aria-label='clear-facets-button']");
+  }
+
+  getRelatedEntity() {
+    return cy.get("[aria-label='related-entity-Person']");
+  }
+
   //Actions
   clickOnBaseEntity(entity: string) {
     return this.getBaseEntity(entity).click();
   }
   clickFacetCheckbox(name: string) {
     return this.getFacetCheckbox(name).click();
+  }
+  clickOnApplyFacetsButton() {
+    return this.getApplyFacetsButton().click();
+  }
+  clickOnClearFacetsButton() {
+    return this.getClearFacetsButton().click();
+  }
+  clickOnRelatedEntity(entity: string) {
+    return this.getRelatedEntity().click();
   }
 }
 export default new BaseEntitySidebar();
