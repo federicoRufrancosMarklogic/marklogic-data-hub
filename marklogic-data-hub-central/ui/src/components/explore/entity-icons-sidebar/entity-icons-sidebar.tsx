@@ -5,6 +5,7 @@ import styles from "./entity-icons-sidebar.module.scss";
 import {ChevronDoubleRight} from "react-bootstrap-icons";
 import {SearchContext} from "../../../util/search-context";
 import {HCTooltip} from "@components/common";
+import {IconPickerItem} from "react-fa-icon-picker";
 
 interface Props {
   currentBaseEntities: any[];
@@ -45,7 +46,8 @@ const EntityIconsSidebar: React.FC<Props> = (props) => {
         </HCTooltip>
         {currentBaseEntities.map(({color, icon, name}, index) =>
           <div key={name} aria-label={`base-entity-icon-${name}`} style={{backgroundColor: color}} className={styles.entityIconListItem} onClick={() => handleBaseEntityClicked(index)}>
-            <FontAwesomeIcon icon={Icons[icon]}/>
+            {/* {Icons[icon] ? <FontAwesomeIcon icon={Icons[icon]}/>: <FontAwesomeIcon icon={Icons.faTimesCircle}/>} */}
+            {icon ? <IconPickerItem icon={icon} size={14} color="#777"/> : <IconPickerItem icon="FaTimesCircle" size={14} color="#777"/>}
           </div>
         )}
       </div>

@@ -40,6 +40,7 @@ interface Props {
   setCurrentBaseEntities: (entity: any[]) => void;
   currentRelatedEntities: Map<string, any>;
   setCurrentRelatedEntities: (entity: Map<string, any>) => void;
+  hubEntities: any[];
 }
 
 const PLACEHOLDER: string = "Select a saved query";
@@ -710,6 +711,7 @@ const Sidebar: React.FC<Props> = (props) => {
               currentBaseEntities={props.currentBaseEntities}
               setActiveAccordionRelatedEntities={setActiveAccordion}
               activeKey={activeKey}
+              hubEntities={props.hubEntities}
             />
           </Accordion.Body>
         </Accordion.Item>

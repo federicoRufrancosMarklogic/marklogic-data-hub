@@ -10,36 +10,18 @@ import {HCDivider} from "@components/common";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import {MINIMUM_ENTITIES} from "../../config/exploreSidebar";
 
-const PERSON = {name: "Person", color: "#CEE0ED", amount: 10, filter: 2, icon: "faUser"};
-const BABY_REGISTRY = {name: "Baby Registry", color: "#FDC7D4", amount: 10, filter: 2, icon: "faPiggyBank"};
-const PRODUCT_DETAIL = {name: "Product Detail", color: "#E3DEEB", amount: 599, icon: "faVolleyballBall"};
-const CLIENT = {name: "Client", color: "#C9EBC4", amount: 9000, icon: "faPrint"};
-const CUSTOMERS = {name: "Customer", color: "#BEDDDF", amount: 100, filter: 1, icon: "faShoppingCart"};
-const BUYER = {name: "Buyer", color: "#F0F6D9", amount: 340, icon: "faBell"};
-const ITEM = {name: "Item", color: "#D9F5F0", amount: 40, icon: "faBox"};
-const ORDERS = {name: "Order", color: "#EDD9C5", amount: 10, filter: 2, icon: "faPaperclip"};
-
-const ENTITIES = [
-  {...PERSON, relatedEntities: []},
-  {...BABY_REGISTRY, relatedEntities: []},
-  {...PRODUCT_DETAIL, relatedEntities: []},
-  {...CLIENT, relatedEntities: []},
-  {...CUSTOMERS, relatedEntities: [PERSON, BABY_REGISTRY, PRODUCT_DETAIL, CLIENT, BUYER, ITEM, ORDERS]},
-  {...BUYER, relatedEntities: []},
-  {...ORDERS, relatedEntities: [PERSON, CUSTOMERS, ORDERS]}
-];
-
 interface Props {
   currentBaseEntities: any;
   setCurrentBaseEntities: (entities: any[]) => void;
   setActiveAccordionRelatedEntities: (entity: string)=>void;
   activeKey:any[]
   setEntitySpecificPanel: (entity: any) => void;
+  hubEntities: any[];
 }
 
 const BaseEntitiesFacet: React.FC<Props> = (props) => {
 
-  const {setCurrentBaseEntities, setEntitySpecificPanel, currentBaseEntities} = props;
+  const {setCurrentBaseEntities, setEntitySpecificPanel, currentBaseEntities, hubEntities} = props;
 
   const {
     searchOptions: {baseEntities},
@@ -47,11 +29,16 @@ const BaseEntitiesFacet: React.FC<Props> = (props) => {
   } = useContext(SearchContext);
 
   const [entities, setEntities] = useState<string[]>(baseEntities);
-  const [entitiesList, setEntitiesList] = useState<any[]>(entitiesSorting(ENTITIES));
-  const [displayList, setDisplayList] = useState<any[]>(ENTITIES);
+  const [entitiesList, setEntitiesList] = useState<any[]>(entitiesSorting(hubEntities));
+  const [displayList, setDisplayList] = useState<any[]>(hubEntities);
   const [showMore, setShowMore] = useState<boolean>(false);
 
-  const childrenOptions = ENTITIES.map(element => ({value: element.name, label: element.name, isDisabled: false}));
+
+  useEffect(() => {
+    setDisplayList(hubEntities);
+  }, [hubEntities]);
+
+  const childrenOptions = hubEntities.map(element => ({value: element.name, label: element.name, isDisabled: false}));
   childrenOptions.unshift({
     value: "-",
     label: "-",
@@ -67,12 +54,12 @@ const BaseEntitiesFacet: React.FC<Props> = (props) => {
     const selectedItems = selection.map(element => element.value);
     if (selectedItems.length === 0) {
       setEntities(["All Entities"]);
-      setEntitiesList(ENTITIES);
+      setEntitiesList(hubEntities);
       setCurrentBaseEntities([]);
       if (props.activeKey.indexOf("related-entities") !== -1) { props.setActiveAccordionRelatedEntities("related-entities"); }
     } else {
       const clearSelection = selectedItems.filter(entity => entity !== "All Entities").map((entity => entity));
-      const filteredEntities = ENTITIES.filter(entity => clearSelection.includes(entity.name));
+      const filteredEntities = hubEntities.filter(entity => clearSelection.includes(entity.name));
       setEntities(clearSelection);
       setEntitiesList(filteredEntities);
       setCurrentBaseEntities(filteredEntities);
@@ -141,7 +128,6 @@ const BaseEntitiesFacet: React.FC<Props> = (props) => {
       />
       <div aria-label="base-entities-selection">
         {displayList.map(({name, color, filter, amount, icon}) => {
-          const entityIcon = Icons[icon];
           return (
             <div
               key={name}
@@ -150,7 +136,7 @@ const BaseEntitiesFacet: React.FC<Props> = (props) => {
               className={styles.entityItem}
               onClick={() => setEntitySpecificPanel({name, color, icon})}
             >
-              <FontAwesomeIcon icon={entityIcon} className={styles.entityIcon}/>
+              {icon && <FontAwesomeIcon icon={Icons[icon]} className={styles.entityIcon}/>}
               <span className={styles.entityName}>{name}</span>
               <span className={styles.entityChevron}>
                 <ChevronDoubleRight/>

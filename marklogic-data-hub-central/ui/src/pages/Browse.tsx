@@ -42,7 +42,7 @@ const BUYER = {name: "Buyer", color: "#F0F6D9", amount: 340, icon: "faBell"};
 const ITEM = {name: "Item", color: "#D9F5F0", amount: 40, icon: "faBox"};
 const ORDERS = {name: "Order", color: "#EDD9C5", amount: 10, filter: 2, icon: "faPaperclip"};
 
-const ENTITIES = [
+const ENTITIES2 = [
   {...PERSON, relatedEntities: []},
   {...BABY_REGISTRY, relatedEntities: []},
   {...PRODUCT_DETAIL, relatedEntities: []},
@@ -109,6 +109,7 @@ const Browse: React.FC<Props> = ({location}) => {
   const [currentEntitiesIcons, setCurrentEntitiesIcons] = useState<any[]>([]);
   const [currentRelatedEntities, setCurrentRelatedEntities] = useState<Map<string, any>>(new Map());
   const [updateSpecificFacets, setUpdateSpecificFacets] = useState<boolean>(false);
+  const [hubEntities, setHubEntities] = useState<any[]>([]);
 
   const setEntitySpecificFacets = (entity) => {
     const {name} = entity;
@@ -134,7 +135,7 @@ const Browse: React.FC<Props> = ({location}) => {
     if (currentBaseEntities.length > 0) {
       setCurrentEntitiesIcons(currentBaseEntities);
     } else {
-      setCurrentEntitiesIcons(ENTITIES.slice(0, 5));
+      setCurrentEntitiesIcons(hubEntities.slice(0, 5));
     }
   };
 
@@ -321,8 +322,19 @@ const Browse: React.FC<Props> = ({location}) => {
     }
   };
 
+  const getHubCentralConfigEntities = async () => {
+    const response = await getHubCentralConfig();
+    const {data: {modeling: {entities}}} = response;
+    const newEntities: any[] = [];
+    Object.entries(entities).forEach(entity => {
+      newEntities.push({name: entity[0], ...entity[1] as {}});
+    });
+    setHubEntities(newEntities);
+  };
+
   useEffect(() => {
     getEntityModel();
+    getHubCentralConfigEntities();
     initializeUserPreferences();
     return () => {
       componentIsMounted.current = false;
@@ -591,6 +603,7 @@ const Browse: React.FC<Props> = ({location}) => {
             setCurrentBaseEntities={setCurrentBaseEntities}
             currentRelatedEntities={currentRelatedEntities}
             setCurrentRelatedEntities={setCurrentRelatedEntities}
+            hubEntities={hubEntities}
           />
         </HCSider>
       }
