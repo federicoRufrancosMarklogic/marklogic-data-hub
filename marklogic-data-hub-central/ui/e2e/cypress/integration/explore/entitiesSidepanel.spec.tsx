@@ -86,10 +86,16 @@ describe("Test '/Explore' left sidebar", () => {
   it("Validate facets on table view and applying them over a base entities", () => {
     cy.log("Opening table view");
     browsePage.getTableView().click();
+    
+    cy.log("Checking facet is selected");
     entitiesSidebar.clickFacetCheckbox("Adams Cole");
     entitiesSidebar.getFacetCheckbox("Adams Cole").should("be.checked");
-    entitiesSidebar.clickOnApplyFacetsButton();
+    browsePage.getGreySelectedFacets("Adams Cole").should("exist");
 
+    cy.log("Applying facet");
+    entitiesSidebar.clickOnApplyFacetsButton();
+    browsePage.getAppliedFacets("Adams Cole").should("exist");
+  
     cy.log("Checking table rows amount shown");
     browsePage.getHCTableRows().should("have.length", 2);
 
@@ -99,13 +105,11 @@ describe("Test '/Explore' left sidebar", () => {
     entitiesSidebar.getDateFacet().should("not.be.empty");
     entitiesSidebar.clickOnApplyFacetsButton();
     browsePage.getHCTableRows().should("have.length", 0);
+    entitiesSidebar.clickOnClearFacetsButton();
+    entitiesSidebar.backToMainSidebarButton.click();
   });
 
   it("Searching text on related entities", () => {
-    cy.reload();
-    browsePage.waitForSpinnerToDisappear();
-    cy.wait(3000);
-
     cy.log("Selecting Order entity");
     browsePage.selectBaseEntity("Order");
     browsePage.waitForSpinnerToDisappear();

@@ -26,13 +26,15 @@ const EntityIconsSidebar: React.FC<Props> = (props) => {
   };
 
   const handleBaseEntityClicked = (index) => {
-    updateSelectedEntity(currentBaseEntities[index]);
-    setEntity(currentBaseEntities[index]);
+    const entity = currentBaseEntities[index];
+    updateSelectedEntity(entity);
+    setEntity(entity.name);
   };
 
   const handleRelatedEntityClicked = (index) => {
-    updateSelectedEntity(currentRelatedEntitiesArray[index]);
-    setEntity(currentRelatedEntitiesArray[index]);
+    const entity = currentRelatedEntitiesArray[index];
+    updateSelectedEntity(entity);
+    setEntity(entity.name);
   };
 
   return (

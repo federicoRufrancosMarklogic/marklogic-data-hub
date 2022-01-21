@@ -317,7 +317,7 @@ class BrowsePage {
   }
 
   clickOnBaseEntitiesDropdown() {
-    return cy.get("[aria-label='base-entities-dropdown-list']").click({force: true});
+    return cy.get("#entitiesSidebar-select-wrapper [class$=IndicatorsContainer]").click({force: true});
   }
 
   selectBaseEntity(entity: string) {
